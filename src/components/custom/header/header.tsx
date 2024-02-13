@@ -8,8 +8,6 @@ interface HeaderProps {
 }
 
 const Header = (props: HeaderProps) => {
-  console.log(props?.page);
-
   return (
     <div
       className={cn(

@@ -16,7 +16,7 @@ export const dummyNews = [
       "Create prototype of tesla coil,prove that AC current was not dengerous,prepare presentation",
   },
   {
-    id: "user_2",
+    id: "user_3",
     imageUrl: "",
     fullName: "Thomas Alfa Edison",
     createdAt: new Date(),

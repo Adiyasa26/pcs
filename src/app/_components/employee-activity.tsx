@@ -12,7 +12,6 @@ interface EmployeeActivityIconProps {
   icons: keyof typeof icons;
   title?: string | ReactNode;
   children?: ReactNode;
-  status?: "default" | "danger";
   description?: string;
 }
 
@@ -26,27 +25,24 @@ const renderer = ({
   seconds: number;
 }) => {
   return (
-    <span className={cn(hours < 4 ? "text-rose-500" : "text-gray-900")}>
+    <span
+      className={cn(
+        "text-sm font-bold",
+        hours < 4 ? "text-rose-500" : "text-gray-900",
+      )}
+    >
       {hours}:{minutes}:{seconds}
     </span>
   );
 };
 
 const EmployeeActivityIcon = (props: EmployeeActivityIconProps) => {
-  const { status = "default" } = props;
   return (
     <div className="flex flex-col items-center justify-center gap-2 p-4">
       <Icon name={props.icons} className="h-8 w-8 text-rose-500" />
       <div className="flex flex-col items-center justify-center text-gray-900">
-        <h1
-          className={cn(
-            "text-sm font-bold",
-            status === "default" ? "text-gray-900" : "text-rose-500",
-          )}
-        >
-          {props?.title}
-          {props?.children}
-        </h1>
+        <h1 className={cn("text-sm font-bold")}>{props?.title}</h1>
+        {props?.children}
         <p className="text-xs font-thin">{props?.description}</p>
       </div>
     </div>
