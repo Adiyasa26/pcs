@@ -9,7 +9,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { type dummyNews } from "@/app/page";
+import { type dummyNews } from "@/constants/dummy-news";
 
 export const AnimatedTooltip = ({ items }: { items: typeof dummyNews }) => {
   const [hoveredIndex, setHoveredIndex] = useState<string | null>(null);

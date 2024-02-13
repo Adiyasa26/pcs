@@ -1,6 +1,6 @@
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import React from "react";
-import { dummyNews } from "../page";
+import { dummyNews } from "@/constants/dummy-news";
 import { Card } from "@/components/ui/card";
 
 const OnlineCard = () => {
