@@ -49,6 +49,7 @@ const FooterState = () => {
   const pathname = usePathname();
   const user = useUser();
   const today = getDateformat({ date: new Date(), type: "yyyy-MM-dd" });
+  const utils = api.useUtils();
 
   const getAttendance = api.attendace.getSpecificType.useQuery(
     {
@@ -61,11 +62,8 @@ const FooterState = () => {
     },
   );
   const createAttendance = api.attendace.type.useMutation({
-    onSuccess: async (value) => {
-      await api.useUtils().attendace.getSpecificType.invalidate({
-        attendanceType: value?.attendanceType,
-      });
-      await getAttendance?.refetch();
+    onSuccess() {
+      utils.attendace.getSpecificType.invalidate();
     },
   });
 

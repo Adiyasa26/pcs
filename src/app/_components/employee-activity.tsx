@@ -43,6 +43,7 @@ const EmployeeActivityIcon = (props: EmployeeActivityIconProps) => {
       <div className="flex flex-col items-center justify-center text-gray-900">
         <h1 className={cn("text-sm font-bold")}>{props?.title}</h1>
         {props?.children}
+
         <p className="text-xs font-thin">{props?.description}</p>
       </div>
     </div>
