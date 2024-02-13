@@ -1,12 +1,11 @@
-import { Icon } from "@/components/custom/Icon/Icon";
 import Header from "@/components/custom/header/header";
-import { Button } from "@/components/ui/button";
 import CardEmployee from "./_components/card-employee";
 import EmployeeActivity from "./_components/employee-activity";
 import NewsCarousel from "./_components/news-carousel";
 import OnlineCard from "./_components/online-card";
 import Footer from "@/components/custom/footer/footer";
 import FooterState from "@/components/custom/footer/footer-state";
+import NotificationSheet from "./_components/notification-sheet";
 
 export const dummyNews = [
   {
@@ -54,9 +53,7 @@ export default async function Home() {
       <Header>
         <div className="flex w-full items-center justify-between">
           <h1 className="text-3xl font-extrabold text-rose-600">KerjaYuk!</h1>
-          <Button variant="ghost">
-            <Icon name="BellDot" className="h-7 w-7" />
-          </Button>
+          <NotificationSheet />
         </div>
       </Header>
       <main className="flex h-full flex-col gap-3 bg-white p-6">
