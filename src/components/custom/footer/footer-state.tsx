@@ -61,7 +61,10 @@ const FooterState = () => {
     },
   );
   const createAttendance = api.attendace.type.useMutation({
-    onSuccess: async () => {
+    onSuccess: async (value) => {
+      await api.useUtils().attendace.getSpecificType.invalidate({
+        attendanceType: value?.attendanceType,
+      });
       await getAttendance?.refetch();
     },
   });
@@ -70,8 +73,6 @@ const FooterState = () => {
     () => getAttendance?.data?.at(-1)?.attendanceType === 1,
     [getAttendance?.data],
   );
-
-  console.log(getAttendance?.data, isCheckedIn);
 
   const handleClick = () => {
     if (isCheckedIn && user?.user?.id) {
