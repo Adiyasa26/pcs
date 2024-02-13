@@ -11,6 +11,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { type dummyNews } from "@/constants/dummy-news";
 
+interface EventExtend extends EventTarget {
+  offsetWidth: number;
+}
+
 export const AnimatedTooltip = ({ items }: { items: typeof dummyNews }) => {
   const [hoveredIndex, setHoveredIndex] = useState<string | null>(null);
   const springConfig = { stiffness: 100, damping: 5 };
@@ -25,10 +29,9 @@ export const AnimatedTooltip = ({ items }: { items: typeof dummyNews }) => {
     useTransform(x, [-100, 100], [-50, 50]),
     springConfig,
   );
-  const handleMouseMove: React.MouseEventHandler<HTMLImageElement> = (
-    event,
-  ) => {
-    const halfWidth = event?.target?.offsetWidth / 2;
+  const handleMouseMove: React.MouseEventHandler<HTMLSpanElement> = (event) => {
+    const eventTarget: EventExtend = event?.target as EventExtend;
+    const halfWidth = eventTarget?.offsetWidth / 2;
     x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
   };
 
