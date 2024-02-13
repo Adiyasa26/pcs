@@ -17,6 +17,8 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     CLERK_SECRET_KEY: z.string(),
+    TURSO_AUTH_TOKEN: z.string(),
+    TURSO_DATABASE_URL: z.string(),
   },
 
   /**
@@ -38,6 +40,8 @@ export const env = createEnv({
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
+    TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
