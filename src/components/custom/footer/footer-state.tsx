@@ -62,8 +62,8 @@ const FooterState = () => {
     },
   );
   const createAttendance = api.attendace.type.useMutation({
-    onSuccess() {
-      utils.attendace.getSpecificType.invalidate();
+    async onSuccess() {
+      await utils.attendace.getSpecificType.invalidate();
     },
   });
 
