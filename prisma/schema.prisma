@@ -18,3 +18,21 @@ model Post {
 
     @@index([name])
 }
+
+model Attendance {
+    id             String   @id @default(cuid())
+    userId         String
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt
+    attendanceType Int      @default(0)
+    report         Report?  @relation(fields: [reportId], references: [id])
+    reportId       String?  @unique
+}
+
+model Report {
+    id         String      @id @default(cuid())
+    report     String
+    Attendance Attendance?
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+}

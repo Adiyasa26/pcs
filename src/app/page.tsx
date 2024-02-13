@@ -1,69 +1,76 @@
-import { unstable_noStore as noStore } from "next/cache";
-import Link from "next/link";
+import { Icon } from "@/components/custom/Icon/Icon";
+import Header from "@/components/custom/header/header";
+import { Button } from "@/components/ui/button";
+import CardEmployee from "./_components/card-employee";
+import EmployeeActivity from "./_components/employee-activity";
+import NewsCarousel from "./_components/news-carousel";
+import OnlineCard from "./_components/online-card";
+import Footer from "@/components/custom/footer/footer";
+import FooterState from "@/components/custom/footer/footer-state";
 
-import { CreatePost } from "@/app/_components/create-post";
-import { api } from "@/trpc/server";
-import { UserButton } from "@clerk/nextjs";
+export const dummyNews = [
+  {
+    id: "user_1",
+    imageUrl: "",
+    fullName: "Albert Einstein",
+    createdAt: new Date(),
+    report:
+      "Investigate relativity theorm,writing the theory to math equation,prepare presentation",
+  },
+  {
+    id: "user_2",
+    imageUrl: "",
+    fullName: "Nikola Tesla",
+    createdAt: new Date(),
+    report:
+      "Create prototype of tesla coil,prove that AC current was not dengerous,prepare presentation",
+  },
+  {
+    id: "user_2",
+    imageUrl: "",
+    fullName: "Thomas Alfa Edison",
+    createdAt: new Date(),
+    report:
+      "Create prove that Tesla model is dengerous,create electrical system in the city using DC current,lobby the president",
+  },
+];
 
 export default async function Home() {
-  noStore();
-  const hello = await api.post.hello.query({ text: "from tRPC" });
+  const today = new Date();
+  const curHr = today.getHours();
+
+  const state = () => {
+    if (curHr < 12) {
+      return "Morning!";
+    } else if (curHr < 18) {
+      return "Afternoon!";
+    } else {
+      return "Evening!";
+    }
+  };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <UserButton />
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <>
+      <Header>
+        <div className="flex w-full items-center justify-between">
+          <h1 className="text-3xl font-extrabold text-rose-600">KerjaYuk!</h1>
+          <Button variant="ghost">
+            <Icon name="BellDot" className="h-7 w-7" />
+          </Button>
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-        </div>
-
-        <CrudShowcase />
-      </div>
-    </main>
-  );
-}
-
-async function CrudShowcase() {
-  const latestPost = await api.post.getLatest.query();
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
-    </div>
+      </Header>
+      <main className="flex h-full flex-col gap-3 bg-white p-6">
+        <h2 className="text-sm font-medium text-slate-900">
+          Hi, Good {state()}
+        </h2>
+        <CardEmployee />
+        <EmployeeActivity />
+        <NewsCarousel />
+        <OnlineCard />
+      </main>
+      <Footer>
+        <FooterState />
+      </Footer>
+    </>
   );
 }
