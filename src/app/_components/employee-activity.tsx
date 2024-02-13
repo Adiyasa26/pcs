@@ -6,24 +6,17 @@ import { type icons } from "lucide-react";
 import { cn, getDateformat } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { api } from "@/trpc/react";
-import Countdown from "react-countdown";
+import Countdown, { type CountdownRenderProps } from "react-countdown";
 
 interface EmployeeActivityIconProps {
   icons: keyof typeof icons;
   title?: string | ReactNode;
   children?: ReactNode;
   description?: string;
+  data?: string;
 }
 
-const renderer = ({
-  hours,
-  minutes,
-  seconds,
-}: {
-  hours: number;
-  minutes: number;
-  seconds: number;
-}) => {
+const Renderer = ({ hours, minutes, seconds }: CountdownRenderProps) => {
   return (
     <span
       className={cn(
@@ -43,7 +36,6 @@ const EmployeeActivityIcon = (props: EmployeeActivityIconProps) => {
       <div className="flex flex-col items-center justify-center text-gray-900">
         <h1 className={cn("text-sm font-bold")}>{props?.title}</h1>
         {props?.children}
-
         <p className="text-xs font-thin">{props?.description}</p>
       </div>
     </div>
@@ -100,13 +92,20 @@ const EmployeeActivity = () => {
           description="Check in"
         />
         <EmployeeActivityIcon icons="TimerReset" description="Working Hours">
-          <Countdown
-            date={
-              (getAttendanceCheckIn?.data?.at(-1)?.createdAt?.getTime() ?? 0) +
-              28800000
-            }
-            renderer={renderer}
-          />
+          {getAttendanceCheckIn?.data?.at(-1) ? (
+            <Countdown
+              date={
+                (getAttendanceCheckIn?.data?.at(-1)?.createdAt?.getTime() ??
+                  0) + 28800000
+              }
+              renderer={Renderer}
+              autoStart
+            />
+          ) : (
+            <span className={cn("text-sm font-bold text-gray-900")}>
+              --:--:--
+            </span>
+          )}
         </EmployeeActivityIcon>
         <EmployeeActivityIcon
           icons="Clock6"
